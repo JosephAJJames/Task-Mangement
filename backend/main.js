@@ -1,9 +1,18 @@
+const path = require("path")
 const fastify = require("fastify")(
     {logger : true}
 )
 
+fastify.register(require('point-of-view'), {
+    engine: {
+      ejs: require('ejs')
+    },
+    root: path.join(__dirname, '../frontend'),
+    viewExt: 'ejs'
+  });
+
 fastify.get("/", (req, res) => {
-    return {result : "root"}
+    res.view("login", {})
 })
 
 const start = async () => {
