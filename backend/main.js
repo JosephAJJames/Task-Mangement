@@ -2,6 +2,9 @@ const path = require("path")
 const fastify = require("fastify")(
     {logger : true}
 )
+const Server_Manager = require("./Manager.js")
+
+const manager = new Server_Manager()
 
 fastify.register(require('point-of-view'), {
     engine: {
@@ -12,6 +15,7 @@ fastify.register(require('point-of-view'), {
   });
 
 fastify.get("/", (req, res) => {
+    manager.rootCheck()
     res.view("login", {})
 })
 
