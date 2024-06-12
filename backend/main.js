@@ -6,6 +6,13 @@ const Server_Manager = require("./Manager.js")
 
 const manager = new Server_Manager()
 
+
+fastify.register(fastifyStatic, {
+    root: path.join(__dirname, 'public'),
+    prefix: '/public/', // optional: default '/'
+  });
+
+
 fastify.register(require('point-of-view'), {
     engine: {
       ejs: require('ejs')
@@ -14,6 +21,7 @@ fastify.register(require('point-of-view'), {
     viewExt: 'ejs'
   });
 
+  
 fastify.get("/", (req, res) => {
     manager.rootCheck()
     res.view("login", {})
