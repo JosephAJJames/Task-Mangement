@@ -3,7 +3,7 @@ const fastify = require("fastify")(
     {logger : true}
 )
 const Server_Manager = require("./Manager.js")
-
+const fastifyStatic = require('fastify-static');
 const manager = new Server_Manager()
 
 
@@ -21,7 +21,7 @@ fastify.register(require('point-of-view'), {
     viewExt: 'ejs'
   });
 
-  
+
 fastify.get("/", (req, res) => {
     manager.rootCheck()
     res.view("login", {})
