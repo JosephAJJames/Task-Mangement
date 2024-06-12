@@ -3,6 +3,7 @@
     "axios": "^1.7.2",
     "ejs": "^3.1.10",
     "fastify": "^4.27.0",
+    "fastify-static": "^4.7.0",
     "point-of-view": "^6.3.0"
   }
 }
