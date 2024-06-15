@@ -11,7 +11,6 @@ fastify.register(fastifyStatic, {
   prefix: '/public/', // optional: default '/'
 });
 
-// Register the @fastify/view plugin for template rendering
 fastify.register(fastifyView, {
   engine: {
     ejs: require('ejs')
@@ -19,13 +18,20 @@ fastify.register(fastifyView, {
   root: path.join(__dirname, 'views')
 });
 
-fastify.get("/", (req, reply) => {
-  // Assuming manager.rootCheck() is defined somewhere
+fastify.get("/", (req, res) => {
   manager.rootCheck();
-  reply.view("login", {});
+  res.view("login", {});
 });
 
-// Start the server
+fastify.get("/signup/page", (req, res) => {
+  console.log("a")
+  res.view("sign_up", {});
+})
+
+fastify.post("/signup", (req, res) => {
+  return;
+})
+
 const start = async () => {
   try {
     await fastify.listen({ port: 3030, host: "0.0.0.0"});
