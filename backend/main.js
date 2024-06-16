@@ -5,10 +5,9 @@ const path = require('path');
 const fastifyStatic = require('@fastify/static');
 const fastifyView = require('@fastify/view');
 
-// Register the fastify-static plugin
 fastify.register(fastifyStatic, {
   root: path.join(__dirname, '../frontend'),
-  prefix: '/public/', // optional: default '/'
+  prefix: '/public/', 
 });
 
 fastify.register(fastifyView, {
@@ -17,6 +16,8 @@ fastify.register(fastifyView, {
   },
   root: path.join(__dirname, 'views')
 });
+
+fastify.register(require('@fastify/formbody'))
 
 fastify.get("/", (req, res) => {
   manager.rootCheck();
@@ -29,9 +30,8 @@ fastify.get("/signup/page", (req, res) => {
 })
 
 fastify.post("/signup", (req, res) => {
-  const {username, password} = req.body
-  console.log("signup POST pinged")
-  console.log(username, password)
+  const {username, password, passwordconfirm} = req.body
+
 })
 
 const start = async () => {

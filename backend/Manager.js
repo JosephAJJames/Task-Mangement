@@ -12,5 +12,9 @@ class Server_Manager {
     }
 
     checkUserExists(user) {}
+
+    addUser(userUsername, userPassword) {
+        axios.post("", {username : userPassword, password : userPassword})
+    }
 }
 module.exports = Server_Manager
