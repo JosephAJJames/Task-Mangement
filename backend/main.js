@@ -29,7 +29,8 @@ fastify.get("/signup/page", (req, res) => {
 })
 
 fastify.post("/signup", (req, res) => {
-  return;
+  const {username, password} = res.body
+  console.log(username, password)
 })
 
 const start = async () => {
