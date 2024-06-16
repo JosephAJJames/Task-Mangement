@@ -29,7 +29,8 @@ fastify.get("/signup/page", (req, res) => {
 })
 
 fastify.post("/signup", (req, res) => {
-  const {username, password} = res.body
+  const {username, password} = req.body
+  console.log("signup POST pinged")
   console.log(username, password)
 })
 
