@@ -11,10 +11,11 @@ class Server_Manager {
         })
     }
 
-    async checkUserExists(userUsername, userPassword) {
-        const res = await axios.post("http://127.0.0.1:8080/login", {
+    async checkUserExists(userUsername, userPassword, userName) {
+        const res = await axios.post("http://127.0.0.1:8080/checkuserexists", {
             user:userUsername, 
-            password:userPassword
+            password:userPassword,
+            name:userName
         }, {
             Headers : {
                 'Content-Type': 'application/json'
@@ -24,10 +25,11 @@ class Server_Manager {
         return res
     }
 
-    async addUser(userUsername, userPassword) {
+    async addUser(userUsername, userPassword, userName) {
         const res = await axios.post("http://127.0.0.1:8080/adduser", {
             user:userUsername, 
-            password:userPassword
+            password:userPassword,
+            name:userName
         }, {
             Headers : {
                 'Content-Type': 'application/json'
@@ -37,8 +39,17 @@ class Server_Manager {
         return res
     }
 
-    async getUsersName(username) {
-        return;
+    async getUsersName(userName) {
+        const res = await axios.get("http://127.0.0.1:8080/getname" , {
+            params: {
+                username: userName
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        return res.data
     }
 }
 module.exports = Server_Manager
