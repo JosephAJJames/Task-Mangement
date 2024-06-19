@@ -11,10 +11,34 @@ class Server_Manager {
         })
     }
 
-    checkUserExists(user) {}
+    async checkUserExists(userUsername, userPassword) {
+        const res = await axios.post("http://127.0.0.1:8080/login", {
+            user:userUsername, 
+            password:userPassword
+        }, {
+            Headers : {
+                'Content-Type': 'application/json'
+            }
+        })
 
-    addUser(userUsername, userPassword) {
-        axios.post("", {username : userPassword, password : userPassword})
+        return res
+    }
+
+    async addUser(userUsername, userPassword) {
+        const res = await axios.post("http://127.0.0.1:8080/adduser", {
+            user:userUsername, 
+            password:userPassword
+        }, {
+            Headers : {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        return res
+    }
+
+    async getUsersName(username) {
+        return;
     }
 }
 module.exports = Server_Manager

@@ -29,9 +29,21 @@ fastify.get("/signup/page", (req, res) => {
   res.view("sign_up", {});
 })
 
-fastify.post("/signup", (req, res) => {
+fastify.post("/signup", async (req, res) => {
   const {username, password, passwordconfirm} = req.body
+  if (password === passwordconfirm) {
+    const resp = await manager.addUser(username, password)
+    res.send(resp.data)
+  }
+})
 
+fastify.post("/login", async (req, res) => {
+  const {user, password} = req.body
+  const resp = await manager.checkUserExists(user, password)
+  if (resp) {
+    const name = manager.getUsersName(user)
+    res.view("homepage", {userName: name})
+  }
 })
 
 const start = async () => {
