@@ -41,9 +41,9 @@ fastify.post("/login", async (req, res) => {
   const {user, password, name} = req.body
   const resp = await manager.checkUserExists(user, password, name)
   if (resp) {
-    console.log("resp is true")
     const name = await manager.getUsersName(user)
-    return res.view("homepage", {userName: name})
+    console.log(name)
+    return res.view("homepage", {userName: name.result})
   }
 })
 
