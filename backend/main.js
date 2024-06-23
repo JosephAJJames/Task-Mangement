@@ -4,6 +4,9 @@ const manager = new Server_Manager()
 const path = require('path');
 const fastifyStatic = require('@fastify/static');
 const fastifyView = require('@fastify/view');
+const fastifyCookie = require('@fastify/cookie');
+const fastifySession = require('@fastify/session');
+
 
 fastify.register(fastifyStatic, {
   root: path.join(__dirname, '../frontend'),
@@ -19,13 +22,36 @@ fastify.register(fastifyView, {
 
 fastify.register(require('@fastify/formbody'))
 
+fastify.register(fastifyCookie);
+fastify.register(fastifySession, {
+  secret: 'my-very-long-secret-key-of-at-least-32-characters', 
+  cookie: { secure: false },
+  saveUninitialized: false,
+  resave: false,
+});
+
+fastify.addHook('preHandler', async (request, reply) => {
+  reply.locals = reply.locals || {}
+  reply.locals.userName = request.session.userName || 'Guest'
+});
+
 fastify.get("/", (req, res) => {
-  manager.rootCheck();
-  res.view("login", {});
+  if (manager.rootCheck() === 'root') {
+    return res.view("login", {})
+  } else {
+    return res.view("rootfail", {})
+  }
+
 });
 
 fastify.get("/signup/page", (req, res) => {
   res.view("sign_up", {}); 
+})
+
+fastify.post("/addtask", async (req, res) => {
+  const {title, description, due_date} = req.data
+  const result = await manager.addTask(title, description, due_date)
+  //session managment
 })
 
 fastify.post("/signup", async (req, res) => {
@@ -42,6 +68,7 @@ fastify.post("/login", async (req, res) => {
   const resp = await manager.checkUserExists(user, password, name) //check if user exists
   if (resp.data.result === 'True') { //assume the user exists
     const name = await manager.getUsersName(user) //get their name
+    req.session.userName = name.result //set session username
     return res.view("homepage", {userName: name.result}) //redirect them to the homepage
   }
   return res.view("login", {message: "Sorry your details are incorrect/dont exists"}) //user dosent exists

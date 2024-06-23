@@ -3,12 +3,9 @@ const axios = require("axios")
 class Server_Manager {
     constructor() {}
 
-    rootCheck() {
-        axios.get("http://127.0.0.1:8080/").then((res) => {
-            console.log(res.data)
-        }).catch((e) => {
-            console.log(e)
-        })
+    async rootCheck() {
+        const res = await axios.get("http://127.0.0.1:8080/")
+        return res.data
     }
 
     async checkUserExists(userUsername, userPassword, userName) {
@@ -50,6 +47,20 @@ class Server_Manager {
         })
 
         return res.data
+    }
+
+    async addTask(title, description, due_date) {
+        const res = await axios.post("http://127.0.0.1:8080/addtask", {
+            title:title,
+            description:description,
+            due_date:due_date
+        }, {
+            Headers : {
+                'Content-Type':'application'
+            }
+        })
+
+        return res
     }
 }
 module.exports = Server_Manager
