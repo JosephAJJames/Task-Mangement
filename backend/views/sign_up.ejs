@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/public/login_style.css">
 </head>
 <body>
     <form action="http://0.0.0.0:3030/signup" method="POST">
@@ -11,7 +12,10 @@
         <input type="text" placeholder="Password" name = "password" required>
         <input type="text" placeholder="Confirm Password" name = "passwordconfirm" required>
         <input type="text" placeholder = "Name" name = "name" required>
-        <button type="submit">Sign Up</button> 
+        <button type="submit">Sign Up</button>
+        <%if (typeof message !== 'undefined') { %>
+            <p><%= message %></p>
+        <% } %>
     </form>
 </body>
 </html>

@@ -16,5 +16,8 @@
     <form action="http://0.0.0.0:3030/signup/page" method="GET">
         <button type="submit">Sign Up</button>
     </form>
+    <% if (typeof message !== 'undefined'){ %>
+        <p><%= message %></p>
+    <% } %>
 </body>
 </html>

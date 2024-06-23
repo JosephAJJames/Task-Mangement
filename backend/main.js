@@ -25,26 +25,26 @@ fastify.get("/", (req, res) => {
 });
 
 fastify.get("/signup/page", (req, res) => {
-  console.log("a")
-  res.view("sign_up", {});
+  res.view("sign_up", {}); 
 })
 
 fastify.post("/signup", async (req, res) => {
   const {username, password, passwordconfirm, name} = req.body
-  if (password === passwordconfirm) {
-    const resp = await manager.addUser(username, password, name)
-    res.send(resp.data)
+  if (password === passwordconfirm) { // passwords match
+    const resp = await manager.addUser(username, password, name) // add user to the database
+    return res.view("login", {}) // reiderict back to login page
   }
+  return res.view("sign_up", {message: "Sorry the password didn't match"}) //return sign up with password mismatch message
 })
 
 fastify.post("/login", async (req, res) => {
-  const {user, password, name} = req.body
-  const resp = await manager.checkUserExists(user, password, name)
-  if (resp) {
-    const name = await manager.getUsersName(user)
-    console.log(name)
-    return res.view("homepage", {userName: name.result})
+  const {user, password, name} = req.body //extract username, password and name
+  const resp = await manager.checkUserExists(user, password, name) //check if user exists
+  if (resp.data.result === 'True') { //assume the user exists
+    const name = await manager.getUsersName(user) //get their name
+    return res.view("homepage", {userName: name.result}) //redirect them to the homepage
   }
+  return res.view("login", {message: "Sorry your details are incorrect/dont exists"}) //user dosent exists
 })
 
 const start = async () => {
