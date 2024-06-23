@@ -4,8 +4,12 @@ class Server_Manager {
     constructor() {}
 
     async rootCheck() {
-        const res = await axios.get("http://127.0.0.1:8080/")
-        return res.data
+        try {
+            const res = await axios.get("http://127.0.0.1:8080/")
+            return res.data
+        } catch (e) {
+            return "fail"
+        }
     }
 
     async checkUserExists(userUsername, userPassword, userName) {
