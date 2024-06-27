@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/addtask" method="POST">
+        <input type="text" name="username" placeholder="Username">
+        <input type="text" name="title" placeholder="Title">
+        <input type="text" name="description" placeholder="Description">
+        <input type="date" name="due_date" placeholder="Due Date">
+        <button type = "submit">Submit</button>
+    </form>
+
+    <%if (typeof message !== 'undefined') {%>
+        <p><%= message %></p>
+    <% } %>
+</body>
+</html>

@@ -53,18 +53,34 @@ class Server_Manager {
         return res.data
     }
 
-    async addTask(title, description, due_date) {
+    async addTask(userName, my_title, my_description, my_due_date) {
+        console.log(userName, my_title, my_description, my_due_date)
         const res = await axios.post("http://127.0.0.1:8080/addtask", {
-            title:title,
-            description:description,
-            due_date:due_date
+            username:userName,
+            title:my_title,
+            description:my_description,
+            due_date:my_due_date
         }, {
             Headers : {
-                'Content-Type':'application'
+                'Content-Type': 'application/json'
             }
+
         })
 
         return res
+    }
+
+    async getTasks(userName) {
+        const res = await axios.get("http://127.0.0.1:8080/gettasks", {
+            params: {
+                username:userName
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        return res.data
     }
 }
 module.exports = Server_Manager

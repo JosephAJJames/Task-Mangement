@@ -35,23 +35,38 @@ fastify.addHook('preHandler', async (request, reply) => {
   reply.locals.userName = request.session.userName || 'Guest'
 });
 
-fastify.get("/", (req, res) => {
-  if (manager.rootCheck() === 'root') {
+fastify.get("/", async (req, res) => {
+  const {result} = await manager.rootCheck()
+  if (result === 'root') {
     return res.view("login", {})
   } else {
     return res.view("rootfail", {})
   }
-
 });
 
-fastify.get("/signup/page", (req, res) => {
-  res.view("sign_up", {}); 
+fastify.post("/addtask", async (req, res) => {
+  const {username, title, description, due_date} = req.body
+  if (username === req.session.userName) {
+    console.log("\n.....", req.session.userName, ".....\n")
+    const result = await manager.addTask(req.session.userName ,title, description, due_date)
+    console.log(result.data, "\n")
+    if (result.data) {
+      return res.view("add_task", {message: "Task added succesfully"})
+    } else {
+      return res.view("add_task", {message: "Task couldn't be added"})
+    }
+  } else {
+    return res.view("add_task", {message: "Can't add tasks to other users accounts"})
+  }
 })
 
-fastify.post("/addtask", async (req, res) => {
-  const {title, description, due_date} = req.data
-  const result = await manager.addTask(title, description, due_date)
-  //session managment
+fastify.get("/addtask/page", (req, res) => {
+  res.view("add_task", {})
+})
+
+
+fastify.get("/signup/page", (req, res) => {
+  res.view("sign_up", {})
 })
 
 fastify.post("/signup", async (req, res) => {
@@ -63,12 +78,24 @@ fastify.post("/signup", async (req, res) => {
   return res.view("sign_up", {message: "Sorry the password didn't match"}) //return sign up with password mismatch message
 })
 
+
+fastify.get("/viewtasks", async (req, res) => {
+  const task_list = await manager.getTasks(req.session.userName)
+  if (task_list.length > 0) {
+    return res.view("view_tasks", {message: task_list})
+  } else {
+    return res.view("view_tasks", {message: "There are no tasks to display"})
+  }
+})
+
+
 fastify.post("/login", async (req, res) => {
   const {user, password, name} = req.body //extract username, password and name
   const resp = await manager.checkUserExists(user, password, name) //check if user exists
   if (resp.data.result === 'True') { //assume the user exists
     const name = await manager.getUsersName(user) //get their name
-    req.session.userName = name.result //set session username
+    req.session.userName = user
+    console.log(req.session.userName, "\n")
     return res.view("homepage", {userName: name.result}) //redirect them to the homepage
   }
   return res.view("login", {message: "Sorry your details are incorrect/dont exists"}) //user dosent exists
