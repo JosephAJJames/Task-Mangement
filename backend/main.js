@@ -82,7 +82,16 @@ fastify.post("/signup", async (req, res) => {
 fastify.get("/viewtasks", async (req, res) => {
   const task_list = await manager.getTasks(req.session.userName)
   if (task_list.length > 0) {
-    return res.view("view_tasks", {message: task_list})
+
+    const new_task_list = task_list.map((elem) => {
+      return JSON.parse(elem)
+    })
+
+    new_task_list.forEach(element => {
+      console.log(element.taskNum, element.title, element.description, element.due_date)
+    });
+
+    return res.view("view_tasks", {message: new_task_list})
   } else {
     return res.view("view_tasks", {message: "There are no tasks to display"})
   }

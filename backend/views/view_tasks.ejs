@@ -6,8 +6,28 @@
     <title>Document</title>
 </head>
 <body>
-    <% if (message !== 'undefined') { %>
-        <%= message %>
+    <% if (message === 'undefined') { %>
+    <% } else { %>
+        <% if (!message.length) { %>
+            <p>There are currently no tasks to display, <a href="/addtask/page">would you like to add a task?</a></p>
+        <% } else { %>
+            <table>
+                <tr>
+                    <td>Task Num</td>
+                    <td>Title</td>
+                    <td>Description</td>
+                    <td>Due Date</td>
+                </tr>
+                <% message.forEach(element => { %>
+                    <tr>
+                        <td><%= element.taskNum%></td>
+                        <td><%= element.title%></td>
+                        <td><%= element.description%></td>
+                        <td><%= element.due_date%></td>
+                    </tr>
+                <%}) %>
+            </table>
+        <% } %>
     <% } %>
 </body>
 </html>
