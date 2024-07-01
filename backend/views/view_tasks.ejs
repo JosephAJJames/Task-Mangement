@@ -4,8 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/public/view_tasks.css">
 </head>
 <body>
+    <nav class = "navbar">
+        <div class = "logo">Logo</div>
+        <ul class = "nav-links">
+            <li><a href="/homepage">Home</a></li>
+            <li><a href="/addtask/page">Add Task</a></li>
+            <li><a href="/viewtasks">View Tasks</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
     <% if (message === 'undefined') { %>
     <% } else { %>
         <% if (!message.length) { %>

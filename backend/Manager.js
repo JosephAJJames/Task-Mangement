@@ -1,6 +1,6 @@
 const axios = require("axios")
 
-class Server_Manager {
+export default class Server_Manager {
     constructor() {}
 
     async rootCheck() {
@@ -23,7 +23,7 @@ class Server_Manager {
             }
         })
 
-        return res
+        return res.data
     }
 
     async addUser(userUsername, userPassword, userName) {
@@ -82,5 +82,13 @@ class Server_Manager {
 
         return res.data
     }
+
+    //will return an array of js objects from an array of JSON objs
+    convertToJsObjFromJSON(arr) {
+        const new_task_list = arr.map((elem) => {
+            return JSON.parse(elem)
+        })
+
+        return new_task_list
+    }
 }
-module.exports = Server_Manager
