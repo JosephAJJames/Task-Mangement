@@ -1,7 +1,7 @@
 const fastifySetup = require("./setupfastify")
-const manager = new require("./Manager")
+const Manager = require("./Manager")
+const manager = new Manager()
 const fastify = require('fastify')({ logger: true });
-
 
 fastify.get("/", async (req, res) => {
   const {result} = await manager.rootCheck() //get result of root check

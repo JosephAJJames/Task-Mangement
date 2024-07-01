@@ -9,7 +9,6 @@ const fastifySession = require('@fastify/session');
 const fastifySetup = (fastify) => {
     
     dotenv.config()
-    console.log('SECRET_KEY:', process.env.SECRET_KEY);
     fastify.register(fastifyStatic, {
         root: path.join(__dirname, '../frontend'),
         prefix: '/public/', 
