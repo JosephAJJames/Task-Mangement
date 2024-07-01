@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 const path = require('path');
 const fastifyStatic = require('@fastify/static');
 const fastifyView = require('@fastify/view');
@@ -9,6 +9,7 @@ const fastifySession = require('@fastify/session');
 const fastifySetup = (fastify) => {
     
     dotenv.config()
+    console.log('SECRET_KEY:', process.env.SECRET_KEY);
     fastify.register(fastifyStatic, {
         root: path.join(__dirname, '../frontend'),
         prefix: '/public/', 
@@ -37,4 +38,4 @@ const fastifySetup = (fastify) => {
     })
 }
 
-export default fastifySetup
+module.exports = fastifySetup

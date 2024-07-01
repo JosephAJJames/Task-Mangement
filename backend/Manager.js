@@ -1,6 +1,6 @@
 const axios = require("axios")
 
-export default class Server_Manager {
+class Server_Manager {
     constructor() {}
 
     async rootCheck() {
@@ -92,3 +92,5 @@ export default class Server_Manager {
         return new_task_list
     }
 }
+
+module.exports = Server_Manager

@@ -1,6 +1,5 @@
-import Server_Manager from "./Manager"
-import fastifySetup from "./setupfastify"
-const manager = new Server_Manager()
+const fastifySetup = require("./setupfastify")
+const manager = new require("./Manager")
 const fastify = require('fastify')({ logger: true });
 
 
