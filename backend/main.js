@@ -85,6 +85,10 @@ fastify.post("/login", async (req, res) => {
   return res.view("login", {message: "Sorry your details are incorrect/dont exists"}) //user dosent exists
 })
 
+fastify.get("/contact/page", (req, res) => {
+  res.view("contact", {})
+})
+
 const start = async () => {
   try {
     fastifySetup(fastify)
