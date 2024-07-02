@@ -8,7 +8,6 @@
 </head>
 <body>
     <nav class = "navbar">
-        <div class = "logo">Logo</div>
         <ul class = "nav-links">
             <li><a href="/homepage">Home</a></li>
             <li><a href="/addtask/page">Add Task</a></li>
@@ -16,28 +15,30 @@
             <li><a href="#">Contact</a></li>
         </ul>
     </nav>
-    <% if (message === 'undefined') { %>
-    <% } else { %>
-        <% if (!message.length) { %>
-            <p>There are currently no tasks to display, <a href="/addtask/page">would you like to add a task?</a></p>
+    <section>
+        <% if (message === 'undefined') { %>
         <% } else { %>
-            <table>
-                <tr>
-                    <td>Task Num</td>
-                    <td>Title</td>
-                    <td>Description</td>
-                    <td>Due Date</td>
-                </tr>
-                <% message.forEach(element => { %>
-                    <tr>
-                        <td><%= element.taskNum%></td>
-                        <td><%= element.title%></td>
-                        <td><%= element.description%></td>
-                        <td><%= element.due_date%></td>
+            <% if (!message.length) { %>
+                <p>There are currently no tasks to display, <a href="/addtask/page">would you like to add a task?</a></p>
+            <% } else { %>
+                <table>
+                    <tr class = "top_row">
+                        <td class = "top_row_word">Task Num</td>
+                        <td class = "top_row_word">Title</td>
+                        <td class = "top_row_word">Description</td>
+                        <td class = "top_row_word">Due Date</td>
                     </tr>
-                <%}) %>
-            </table>
+                    <% message.forEach(element => { %>
+                        <tr>
+                            <td><%= element.taskNum%></td>
+                            <td><%= element.title%></td>
+                            <td><%= element.description%></td>
+                            <td><%= element.due_date%></td>
+                        </tr>
+                    <%}) %>
+                </table>
+            <% } %>
         <% } %>
-    <% } %>
+    </section>  
 </body>
 </html>

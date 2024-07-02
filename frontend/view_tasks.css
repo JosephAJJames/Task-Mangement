@@ -1,11 +1,57 @@
 .navbar {
+    width: 50%;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    justify-content: center;
 }
 
 .nav-links {
+    padding: 0;
+    width: 40%;
     list-style: none;
     display: flex;
+    flex-wrap: nowrap;
     flex-direction: row;
+    justify-content: space-around;
+}
+
+a {
+    color: black;
+    display: inline-block;
+    text-decoration: none;
+    border-bottom: 0.2rem solid darkgreen;
+    transition: border-bottom 0 ease-out;
+    transition: box-shadow 0.1s ease-in-out;
+}
+
+p, a {
+    font-size: large;
+}
+
+a:hover {
+    border-bottom: 0.2rem solid transparent;
+    box-shadow: 0 0.2rem 0 lightgreen;
+}
+section {
+    margin-top: 0.3rem;
+    border-top: 0.3rem solid black;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.top_row {
+    border-bottom: 0.5rem solid black;
+}
+
+table {
+    margin-top: 2rem;
+    width: 30%;
+}
+
+tr {
+    font-size: large;
+}
+
+.top_row_word {
+    font-size: larger;
 }
