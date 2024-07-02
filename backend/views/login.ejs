@@ -7,15 +7,18 @@
     <link rel="stylesheet" href="/public/login_style.css">
 </head>
 <body>
-    <form action="http://0.0.0.0:3030/login" method="POST">
-        <input type="text" name = "user" placeholder="Username" required>
-        <input type="text" name = "password" placeholder="Password" required>
-        <input type="text" name = "name" placeholder="Name" required>
-        <button type = "submit">Submit</button>
-    </form>
-    <form action="http://0.0.0.0:3030/signup/page" method="GET">
-        <button type="submit">Sign Up</button>
-    </form>
+    <main class = "main_section">
+        <h1>Task Management</h1>
+        <form action="http://0.0.0.0:3030/login" method="POST" class = "main_form">
+            <input type="text" name = "user" placeholder="Username" required>
+            <input type="text" name = "password" placeholder="Password" required>
+            <input type="text" name = "name" placeholder="Name" required>
+            <section class = "button_panel">
+                <button type = "submit">Submit</button>
+                <a href="/signup/page">Sign Up</a>
+            </section>
+        </form>
+    </main>
     <% if (typeof message !== 'undefined'){ %>
         <p><%= message %></p>
     <% } %>
